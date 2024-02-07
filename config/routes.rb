@@ -6,5 +6,18 @@ Rails.application.routes.draw do
   get "healthcheck" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  # root "posts#index"
+  root "pages#index"
+
+  # Dashboard
+  get 'dashboard/:quicknode_id' => 'dashboard#show', as: 'dashboard'
+
+  # Provisioning
+  post 'provision' => "provisioning#provision", as: 'provision'
+  put 'update' => "provisioning#update", as: 'update'
+  delete 'deactivate_endpoint' => "provisioning#deactivate_endpoint", as: 'deactivate_endpoint'
+  delete 'deprovision' => "provisioning#deprovision", as: 'deprovision'
+
+  # RPC
+  post 'rpc' => "rpc#rpc", as: 'rpc'
+
 end
