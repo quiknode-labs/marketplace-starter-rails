@@ -1,0 +1,8 @@
+#! /bin/bash
+set -eu
+
+echo "****** running Rubocop for enforcing styleguide ******"
+bundle exec rubocop
+
+echo "****** running specs ******"
+bin/rails spec

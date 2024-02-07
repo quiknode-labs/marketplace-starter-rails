@@ -1,0 +1,124 @@
+Bundler/OrderedGems:
+  Enabled: false
+
+Style/AndOr:
+  Exclude:
+    - "app/controllers/*"
+
+Style/RegexpLiteral:
+  EnforcedStyle: "mixed"
+  AllowInnerSlashes: true
+
+Layout/LineLength:
+  Max: 140
+  IgnoredPatterns: ['(\A|\s)#']
+
+Layout/FirstArgumentIndentation:
+  Enabled: false
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 7
+
+Metrics/ClassLength:
+  Max: 125
+  Exclude:
+    - "config/application.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "config/routes.rb"
+    - "config/environments/*"
+    - "spec/**/*"
+
+Metrics/ParameterLists:
+  Max: 6
+
+Naming/VariableNumber:
+  EnforcedStyle: snake_case # `result_1` vs `result1`
+
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Style/FormatStringToken
+# Use a consistent style for named format string tokens.
+Style/FormatStringToken:
+  Enabled: false
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Style/Documentation
+# Enforce top-level documentation of classes and modules
+# This is a good rule overall but would currently trigger on tons of existing code, so disable for now
+Style/Documentation:
+  Enabled: false
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Style/IfUnlessModifier
+# Checks for if and unless statements that would fit on one line if written as modifier if/unless
+Style/IfUnlessModifier:
+  Enabled: false
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Style/GuardClause
+  # Use a guard clause instead of wrapping the code inside a conditional expression
+Style/GuardClause:
+  Enabled: true
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Layout/MultilineMethodCallIndentation
+# checks the indentation of the method name part in method calls that span more than one line.
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  Enabled: true
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Style/RescueModifier
+# This cop checks for uses of rescue in its modifier form.
+Style/RescueModifier:
+  Enabled: false
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Style/StringLiterals
+# Checks if uses of quotes match the configured preference.
+Style/StringLiterals:
+  Enabled: false
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Style/ClassAndModuleChildren
+# This cop checks the style of children definitions at classes and modules
+Style/ClassAndModuleChildren:
+  Enabled: false
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/MethodLength
+# This cop checks if the length of a method exceeds some maximum value
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/migrate/*"
+
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/AbcSize
+# This cop checks that the ABC size of methods is not higher than the configured maximum
+Metrics/AbcSize:
+  Max: 30
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Metrics/PerceivedComplexity
+# This cop tries to produce a complexity score that's a measure of the complexity the reader experiences when looking at a method
+Metrics/PerceivedComplexity:
+  Enabled: false
+# https://www.rubydoc.info/github/bbatsov/RuboCop/RuboCop/Cop/Layout/FirstArrayElementIndentation
+# This cop checks the indentation of the first element in an array literal where the opening bracket and the first element are on separate lines
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+# This cop checks for trailing comma in argument lists.
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: consistent_comma
+
+# This cop checks for trailing comma in hash literals.
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+  # This cop checks for trailing comma in array literals.
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+  Exclude:
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+    - "bin/*"
+    - "sorbet/**/*"
+    - "spec/**/*"
+    - "lib/tasks/*.rake"
+    - "config/routes.rb"
+    - "db/migrate/*"
+    - "db/seeds.rb"
+    - "Gemfile"
+    - "tmp/*"
+    - "config/puma.rb"

@@ -48,7 +48,16 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
 
+   # Keep our code clean
+   gem "rubocop", "~> 1.27.0", require: false
+   gem "rubocop-rails", require: false
+ 
+   gem "byebug"
+ 
   gem "rspec-rails"
+
+  # One-liners to test common Rails functionality
+  gem 'shoulda-matchers'
 end
 
 group :development do
