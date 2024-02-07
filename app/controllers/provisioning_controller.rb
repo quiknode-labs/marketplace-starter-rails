@@ -30,7 +30,7 @@ class ProvisioningController < ApplicationController
 
     render json: {
       status: "success",
-      'dashboard-url': dashboard_path(@account),
+      'dashboard-url': dashboard_url,
       'access-url': nil,
     }
   end
@@ -52,7 +52,7 @@ class ProvisioningController < ApplicationController
 
     render json: {
       status: "success",
-      'dashboard-url': dashboard_path(@account),
+      'dashboard-url': dashboard_url,
       'access-url': nil,
     }
   end
