@@ -41,7 +41,7 @@ jobs:
           DB_URL=postgres://username:password@localhost:5432/test
           JWT_SECRET=jwt-secret
           HOST=localhost
-          POST=3005
+          POST=3009
           AUTH_USERNAME=username
           AUTH_PASSWORD=password
           EOL
@@ -71,13 +71,13 @@ jobs:
         run: cd cli && go build
 
       - name: Conduct a healthcheck
-        run: ./cli/qn-marketplace-cli healthcheck --url http://localhost:3005/healthcheck
+        run: ./cli/qn-marketplace-cli healthcheck --url http://localhost:3009/healthcheck
 
       - name: Conduct a PUDD test
-        run: ./cli/qn-marketplace-cli pudd --base-url http://localhost:3005 --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
+        run: ./cli/qn-marketplace-cli pudd --base-url http://localhost:3009 --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
 
       - name: Test RPC
-        run: ./cli/qn-marketplace-cli rpc --url http://localhost:3005/provision --rpc-url http://localhost:3005/rpc --rpc-method bb_getAddress --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
+        run: ./cli/qn-marketplace-cli rpc --url http://localhost:3009/provision --rpc-url http://localhost:3009/rpc --rpc-method bb_getAddress --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ=
 
       - name: Test SSO
-        run: ./cli/qn-marketplace-cli sso --url http://localhost:3005/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email jon@example.com --name jon --org QuickNode
+        run: ./cli/qn-marketplace-cli sso --url http://localhost:3009/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email jon@example.com --name jon --org QuickNode
