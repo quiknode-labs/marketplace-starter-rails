@@ -3,6 +3,8 @@
 class ProvisioningController < ApplicationController
   skip_before_action :verify_authenticity_token
 
+  before_action :set_account_and_endpoint, only: %i[update deactivate_endpoint deprovision]
+
   # Authenticate with HTTP Basic Auth.
   # To find the credentials: run bin/rails credentials:edit
   http_basic_authenticate_with(
@@ -34,10 +36,7 @@ class ProvisioningController < ApplicationController
   end
 
   def update
-    @account = Account.find_by(quicknode_id: params["quicknode-id"])
     render_404 and return unless @account
-
-    @endpoint = Endpoint.find_by(quicknode_id: params["endpoint-id"])
     render_404 and return unless @endpoint
 
     @account.update(
@@ -59,10 +58,7 @@ class ProvisioningController < ApplicationController
   end
 
   def deactivate_endpoint
-    @account = Account.find_by(quicknode_id: params["quicknode-id"])
     render_404 and return unless @account
-
-    @endpoint = Endpoint.find_by(quicknode_id: params["endpoint-id"])
     render_404 and return unless @endpoint
 
     @endpoint.discard
@@ -73,10 +69,7 @@ class ProvisioningController < ApplicationController
   end
 
   def deprovision
-    @account = Account.find_by(quicknode_id: params["quicknode-id"])
     render_404 and return unless @account
-
-    @endpoint = Endpoint.find_by(quicknode_id: params["endpoint-id"])
     render_404 and return unless @endpoint
 
     @account.endpoints.each(&:discard)
@@ -85,5 +78,12 @@ class ProvisioningController < ApplicationController
     render json: {
       status: "success",
     }
+  end
+
+  private
+
+  def set_account_and_endpoint
+    @account = Account.kept.find_by(quicknode_id: params["quicknode-id"])
+    @endpoint = Endpoint.kept.find_by(quicknode_id: params["endpoint-id"])
   end
 end

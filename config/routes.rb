@@ -9,15 +9,18 @@ Rails.application.routes.draw do
   root "pages#index"
 
   # Dashboard
-  get 'dashboard/:quicknode_id' => 'dashboard#show', as: 'dashboard'
+  get 'dashboard' => 'dashboard#index', as: 'dashboard'
 
-  # Provisioning
-  post 'provision' => "provisioning#provision", as: 'provision'
-  put 'update' => "provisioning#update", as: 'update'
-  delete 'deactivate_endpoint' => "provisioning#deactivate_endpoint", as: 'deactivate_endpoint'
-  delete 'deprovision' => "provisioning#deprovision", as: 'deprovision'
+  # The methods below are APIs that should only use JSON format
+  defaults format: :json do
+    # Provisioning
+    post 'provision' => "provisioning#provision", as: 'provision'
+    put 'update' => "provisioning#update", as: 'update'
+    delete 'deactivate_endpoint' => "provisioning#deactivate_endpoint", as: 'deactivate_endpoint'
+    delete 'deprovision' => "provisioning#deprovision", as: 'deprovision'
 
-  # RPC
-  post 'rpc' => "rpc#rpc", as: 'rpc'
+    # RPC
+    post 'rpc' => "rpc#rpc", as: 'rpc'
+  end
 
 end

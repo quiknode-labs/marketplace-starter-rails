@@ -85,3 +85,5 @@ group :development do
 end
 
 gem "discard"
+
+gem "jwt"
