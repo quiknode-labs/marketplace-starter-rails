@@ -55,6 +55,7 @@ group :development, :test do
    gem "byebug"
  
   gem "rspec-rails"
+  gem "rails-controller-testing"
 
   # One-liners to test common Rails functionality
   gem "shoulda-matchers"

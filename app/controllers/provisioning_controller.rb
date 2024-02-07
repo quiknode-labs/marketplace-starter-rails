@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProvisioningController < ApplicationController
-  respond_to :json
+  skip_before_action :verify_authenticity_token
 
   # Authenticate with HTTP Basic Auth.
   # To find the credentials: run bin/rails credentials:edit
@@ -12,8 +12,8 @@ class ProvisioningController < ApplicationController
 
   def provision
     @account = Account.create_with(
-      plan_slug: params["plan-slug"],
-      is_tester: request.headers['X-QN-TESTING'].present?,
+      plan_slug: params["plan"],
+      is_test: request.headers['X-QN-TESTING'].present?,
     ).find_or_create_by(
       quicknode_id: params["quicknode-id"],
     )
@@ -33,9 +33,57 @@ class ProvisioningController < ApplicationController
     }
   end
 
-  def update; end
+  def update
+    @account = Account.find_by(quicknode_id: params["quicknode-id"])
+    render_404 and return unless @account
 
-  def deactivate_endpoint; end
+    @endpoint = Endpoint.find_by(quicknode_id: params["endpoint-id"])
+    render_404 and return unless @endpoint
 
-  def deprovision; end
+    @account.update(
+      plan_slug: params["plan"],
+    )
+
+    @endpoint.update(
+      http_url: params["http-url"],
+      wss_url: params["wss-url"],
+      chain: params["chain"],
+      network: params["network"],
+    )
+
+    render json: {
+      status: "success",
+      'dashboard-url': dashboard_path(@account),
+      'access-url': nil,
+    }
+  end
+
+  def deactivate_endpoint
+    @account = Account.find_by(quicknode_id: params["quicknode-id"])
+    render_404 and return unless @account
+
+    @endpoint = Endpoint.find_by(quicknode_id: params["endpoint-id"])
+    render_404 and return unless @endpoint
+
+    @endpoint.discard
+
+    render json: {
+      status: "success",
+    }
+  end
+
+  def deprovision
+    @account = Account.find_by(quicknode_id: params["quicknode-id"])
+    render_404 and return unless @account
+
+    @endpoint = Endpoint.find_by(quicknode_id: params["endpoint-id"])
+    render_404 and return unless @endpoint
+
+    @account.endpoints.each(&:discard)
+    @account.discard
+
+    render json: {
+      status: "success",
+    }
+  end
 end

@@ -57,13 +57,13 @@ You need to make sure to replace that with your valid credentials (as defined in
 #### Healthcheck:
 
 ```sh
-../qn-marketplace-cli/qn-marketplace-cli healthcheck --url http://localhost:3010/healthcheck
+../qn-marketplace-cli/qn-marketplace-cli healthcheck --url http://localhost:3009/healthcheck
 ```
 
 #### Provisioning:
 
 ```sh
-../qn-marketplace-cli/qn-marketplace-cli pudd --base-url http://localhost:3010 --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --quicknode-id foobar
+../qn-marketplace-cli/qn-marketplace-cli pudd --base-url http://localhost:3009 --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --quicknode-id foobar
 ```
 
 #### SSO:
@@ -71,13 +71,13 @@ You need to make sure to replace that with your valid credentials (as defined in
 Below, make sure that the `jwt-secret` matches `QN_SSO_SECRET` in `.env` file.
 
 ```
-../qn-marketplace-cli/qn-marketplace-cli sso --url http://localhost:3010/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email jon@example.com --name jon --org QuickNode --quicknode-id foobar
+../qn-marketplace-cli/qn-marketplace-cli sso --url http://localhost:3009/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email jon@example.com --name jon --org QuickNode --quicknode-id foobar
 ```
 
 #### RPC:
 
 ```sh
-../qn-marketplace-cli/qn-marketplace-cli rpc --url http://localhost:3010/provision --rpc-url http://localhost:3010/rpc --rpc-method qn_test --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --quicknode-id foobar
+../qn-marketplace-cli/qn-marketplace-cli rpc --url http://localhost:3009/provision --rpc-url http://localhost:3009/rpc --rpc-method qn_test --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --quicknode-id foobar
 ```
 
 
