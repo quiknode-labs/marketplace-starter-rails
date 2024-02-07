@@ -3,15 +3,18 @@
 class RPCController < ApplicationController
   before_action :validate_headers
 
-  RPC_METHODS = %w[qn_hello_world].freeze
-
   def rpc
     @account = Account.kept.find_by(quicknode_id: request.headers["X-QUICKNODE-ID"])
     render_404 and return unless @account.present?
+    render_404 and return unless params[:method].present?
 
-    render_404 and return unless RPC_METHODS.include?(params[:method])
-
-    render json: { jsonrpc: "2.0", result: "hello world" }
+    begin
+      handler = "RPCMethodHandlers::#{params[:method].camelize}".constantize
+      result = handler.new(params).call
+      render json: result
+    rescue NameError
+      render_404 and return
+    end
   end
 
   private

@@ -73,6 +73,21 @@ RSpec.describe "RPC", type: :request do
       expect(JSON.parse(response.body)["error"]["code"]).to eq(404)
     end
 
+    it "should 404 if the method is not present in params" do
+      post "/rpc", params: {
+        foobar: "bar",
+      },
+      headers: {
+        'X-QUICKNODE-ID': account.quicknode_id,
+        'X-INSTANCE-ID': 'foobar',
+        'X-QN-CHAIN': 'ethereum',
+        'X-QN-NETWORK': 'mainet',
+      }
+      expect(response).to have_http_status(404)
+      expect(JSON.parse(response.body)["jsonrpc"]).to eq("2.0")
+      expect(JSON.parse(response.body)["error"]["code"]).to eq(404)
+    end
+
     it "should 404 if the method is not supported" do
       post "/rpc", params: {
         method: "unsupported_method",
@@ -88,7 +103,7 @@ RSpec.describe "RPC", type: :request do
       expect(JSON.parse(response.body)["error"]["code"]).to eq(404)
     end
 
-    it "should 200 if the method is supported" do
+    it "should 200 if the method is supported: qn_hello_world" do
       post "/rpc", params: {
         method: "qn_hello_world",
       },
@@ -101,6 +116,36 @@ RSpec.describe "RPC", type: :request do
       expect(response).to have_http_status(200)
       expect(JSON.parse(response.body)["jsonrpc"]).to eq("2.0")
       expect(JSON.parse(response.body)["result"]).to eq("hello world")
+    end
+
+    it "should 200 if the method is supported: qn_hello_world" do
+      post "/rpc", params: {
+        method: "qn_hello_world",
+      },
+      headers: {
+        'X-QUICKNODE-ID': account.quicknode_id,
+        'X-INSTANCE-ID': 'foobar',
+        'X-QN-CHAIN': 'ethereum',
+        'X-QN-NETWORK': 'mainet',
+      }
+      expect(response).to have_http_status(200)
+      expect(JSON.parse(response.body)["jsonrpc"]).to eq("2.0")
+      expect(JSON.parse(response.body)["result"]).to eq("hello world")
+    end
+
+    it "should 200 if the method is supported: eth_send_raw_transaction_faster" do
+      post "/rpc", params: {
+        method: "eth_send_raw_transaction_faster",
+      },
+      headers: {
+        'X-QUICKNODE-ID': account.quicknode_id,
+        'X-INSTANCE-ID': 'foobar',
+        'X-QN-CHAIN': 'ethereum',
+        'X-QN-NETWORK': 'mainet',
+      }
+      expect(response).to have_http_status(200)
+      expect(JSON.parse(response.body)["jsonrpc"]).to eq("2.0")
+      expect(JSON.parse(response.body)["result"]).to eq("transaction was sent successfully and faster")
     end
   end
 end
