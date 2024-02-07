@@ -57,7 +57,13 @@ group :development, :test do
   gem "rspec-rails"
 
   # One-liners to test common Rails functionality
-  gem 'shoulda-matchers'
+  gem "shoulda-matchers"
+
+  # A library for setting up Ruby objects as test data (factories)
+  gem "factory_bot_rails"
+
+  # A library for generating fake data
+  gem "faker"
 end
 
 group :development do
@@ -71,3 +77,4 @@ group :development do
   # gem "spring"
 end
 
+gem "discard"

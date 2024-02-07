@@ -70,3 +70,8 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+RSpec.configure do |config|
+  # Include FactoryBot so methods are available in tests
+  config.include FactoryBot::Syntax::Methods
+end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Endpoint < ApplicationRecord
+  include Discard::Model
+
   belongs_to :account
 
   validates :account_id, presence: true
