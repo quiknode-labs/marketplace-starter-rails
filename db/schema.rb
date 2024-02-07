@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_07_131154) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_07_140329) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,4 +23,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_07_131154) do
     t.index ["quicknode_id"], name: "index_accounts_on_quicknode_id"
   end
 
+  create_table "endpoints", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "quicknode_id", null: false
+    t.string "chain", null: false
+    t.string "network", null: false
+    t.string "wss_url"
+    t.string "http_url", null: false
+    t.boolean "is_test", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_endpoints_on_account_id"
+    t.index ["quicknode_id"], name: "index_endpoints_on_quicknode_id"
+  end
+
+  add_foreign_key "endpoints", "accounts"
 end
