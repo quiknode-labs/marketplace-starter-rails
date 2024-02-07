@@ -71,10 +71,16 @@ group :development do
   gem "web-console"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
+  gem "rack-mini-profiler"
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  # In development, open emails in the browser
+  gem "letter_opener"
+
+  # Annotate models with schema
+  gem 'annotate'
 end
 
 gem "discard"
