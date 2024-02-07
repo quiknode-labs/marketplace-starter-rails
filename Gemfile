@@ -84,6 +84,11 @@ group :development do
   gem 'annotate'
 end
 
+# Used to soft delete records
 gem "discard"
 
+# Used to handle JWT authentication for dashboard single sign-on
 gem "jwt"
+
+# Used to make HTTP requests easily
+gem 'httparty'

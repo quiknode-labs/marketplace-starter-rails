@@ -46,6 +46,23 @@ It has an JSON RPC route:
 
 - `POST /rpc`
 
+## Adding RPC Methods
+
+To add a new RPC method, simply add a new file to the [app/services/rpc_method_handlers](app/services/rpc_method_handlers) directory following the naming convention where the filename should be the name of the method lowercased and using `_` (for example: `eth_send_raw_transaction` or `qn_get_token_balance`) and the class should be inside the `RPCMethodHandlers` module and have a name in camel case (for example, `EthSendRawTransaction` or `QnGetTokenBalance`). These handlers must have an initialize class that accepts the params and have a `call` method which should return a ruby hash that can be converted to JSON using `.to_json`.
+
+As an example, take a look at [app/services/rpc_method_handlers/qn_hello_world.rb](app/services/rpc_method_handlers/qn_hello_world.rb) or [app/services/rpc_method_handlers/eth_send_raw_transaction_faster.rb](app/services/rpc_method_handlers/eth_send_raw_transaction_faster.rb)
+
+## Making calls to the customer's endpoint
+
+This Rails app has a service object that makes it easy to make RPC calls to the customer's endpoint. You can use it like this:
+
+```ruby
+endpoint = Endpoint.last
+service = EndpointService.neW(endpoint)
+response = service.rpc_call('eth_blockNumber', [])
+puts response
+```
+
 ## Testing with qn-marketplace-cli
 
 You can use the [qn-marketplace-cli](https://github.com/quiknode-labs/qn-marketplace-cli) tool to quickly test your add-on while developing it.
