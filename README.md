@@ -109,7 +109,10 @@ To deploy to heroku:
 1. Login to Heroku from CLI: `heroku login`
 1. Create the application `heroku apps:create <your app name>`. Make sure you replace `<your app name>` with the name of your add-on.
 1. Add Postgresql database: `heroku addons:create heroku-postgresql:basic`. You can change to a bigger plan such as `standard-0` or `standard-2` instead of `basic` if you want a more robust database.
+1. Set your master key on heroku config for rails credentials: `heroku config:set RAILS_MASTER_KEY=yourkey`
 1. Deploy it with `git push heroku main`
+1. Open the app: `heroku open`
+1. Verify that the healtheck endpoint works by adding `/healthcheck` at the end of the URL from previous step. You should see a green page.
 
 ## LICENSE
 
