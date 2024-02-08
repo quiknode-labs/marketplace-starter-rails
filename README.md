@@ -18,6 +18,7 @@ To install and run the application locally:
 1. `bundle`
 1. Update the this [README.md](README.md) file to have the name of your add-on, etc...
 1. Update [config/database.yml](config/database.yml), [config/cable.yml](config/cable.yml), and [config/envirotnments/production.rb](config/environments/production.rb) file and replace `marketplace_starter_rails` with the name of your application.
+1. `cp .env.example .env` and then update as you see fit.
 1. `bin/rails db:create`
 1. `bin/rails db:migrate`
 1. Edit your credentials/secrets using `bin/rails credentials:edit`.
