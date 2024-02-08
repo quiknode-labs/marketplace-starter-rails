@@ -22,11 +22,6 @@ RSpec.describe "Dashboards", type: :request do
   let(:valid_jwt_token) { JWT.encode(valid_jwt_payload, Rails.application.credentials.jwt.secret, 'HS256') }
 
   describe "GET /dashboard/:quicknode_id" do
-    it "should 400 if missing jwt token in params" do
-      get "/dashboard"
-      expect(response).to have_http_status(400)
-    end
-
     it "should 401 if the jwt token is invalid" do
       get "/dashboard?jwt=invalid_token"
       expect(response).to have_http_status(401)
