@@ -60,7 +60,7 @@ This Rails app has a service object that makes it easy to make RPC calls to the 
 
 ```ruby
 endpoint = Endpoint.last
-service = EndpointService.neW(endpoint)
+service = EndpointService.new(endpoint)
 response = service.rpc_call('eth_blockNumber', [])
 puts response
 ```
