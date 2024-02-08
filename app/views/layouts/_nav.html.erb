@@ -45,20 +45,20 @@
         </div>
         <div class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-4 p-4">
           <div class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-2">
-            <% if session[:name] %>
+            <% if @current_user&.name %>
               <div class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0">
                 <div class="flex justify-start items-center flex-grow relative gap-2 px-2 py-1 rounded-tl-lg rounded-bl-lg">
                   <%= image_tag 'person_icon.svg' %>
 
-                  <p class="flex-grow w-[200px] text-sm text-left text-[#10151b]"><%= session[:name] %></p>
+                  <p class="flex-grow w-[200px] text-sm text-left text-[#10151b]"><%= @current_user&.name %></p>
                 </div>
               </div>
             <% end %>
-            <% if session[:organization_name] %>
+            <% if @current_user&.organization_name %>
               <div class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0">
                 <div class="flex justify-start items-center flex-grow relative gap-2 px-2 py-1 rounded-tl-lg rounded-bl-lg">
                   <%= image_tag 'company_icon.svg' %>
-                  <p class="flex-grow w-[200px] text-sm text-left text-[#10151b]"><%= session[:organization_name] %></p>
+                  <p class="flex-grow w-[200px] text-sm text-left text-[#10151b]"><%= @current_user&.organization_name %></p>
                 </div>
               </div>
             <% end %>

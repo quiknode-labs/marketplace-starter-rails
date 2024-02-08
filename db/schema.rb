@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_08_172954) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_08_173601) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_08_172954) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "discarded_at"
+    t.string "organization_name"
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["discarded_at"], name: "index_users_on_discarded_at"
   end

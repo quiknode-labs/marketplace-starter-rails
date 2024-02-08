@@ -22,9 +22,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authenticate_via_jwt! # rubocop:disable Metrics/AbcSize
+  def authenticate_via_jwt! # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     if session[:account_quicknode_id].present?
       @current_account = Account.kept.find_by(quicknode_id: session[:account_quicknode_id])
+      @current_user = @current_account.users.find_by(email: session[:email])
     else
       token = params['jwt']
       begin
@@ -42,7 +43,16 @@ class ApplicationController < ActionController::Base
       return if @error.present?
 
       @current_account = Account.kept.find_by(quicknode_id: session[:account_quicknode_id])
-      @error = "account not provisioned" unless @current_account
+      if @current_account
+        @current_user = @current_account.users.create_with(
+          name: session[:name],
+          organization_name: session[:organization_name],
+        ).find_or_create_by(
+          email: session[:email],
+        )
+      else
+        @error = "account not provisioned"
+      end
     end
   end
 
