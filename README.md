@@ -98,6 +98,18 @@ Below, make sure that the `jwt-secret` matches `QN_SSO_SECRET` in `bin/rails cre
 ../qn-marketplace-cli/qn-marketplace-cli rpc --url http://localhost:3009/provision --rpc-url http://localhost:3009/rpc --rpc-method qn_hello_world --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --verbose
 ```
 
+## Deploying
+
+### Deploying to Heroku
+
+To deploy to heroku:
+
+1. Ensure you have the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) installed on your machine.
+1. Login to Heroku from CLI: `heroku login`
+1. Create the application `heroku apps:create <your app name>`. Make sure you replace `<your app name>` with the name of your add-on.
+1. Add Postgresql database: `heroku addons:create heroku-postgresql:basic`. You can change to a bigger plan such as `standard-0` or `standard-2` instead of `basic` if you want a more robust database.
+1. Deploy it with `git push heroku main`
+
 ## LICENSE
 
 MIT

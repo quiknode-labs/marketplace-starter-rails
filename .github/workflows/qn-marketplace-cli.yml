@@ -1,0 +1,88 @@
+name: qn-marketplace-cli tests
+
+env:
+  RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+  RAILS_ENV: test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: marketplace_starter_rails_test
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+        with:
+          path: webapp
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.3
+          bundler-cache: true
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get install libpq-dev
+  
+      - name: Install foreman
+        run: gem install foreman
+
+      - name: Install dependencies
+        run: cd webapp && bundle install
+
+      - name: Set up database
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          RAILS_DATABASE_URL: postgres://postgres:postgres@localhost/marketplace_starter_rails_test
+        run: |
+          cd webapp && bin/rails db:prepare
+
+      - name: Check out source code for qn-marketplace-cli
+        uses: actions/checkout@v2
+        with:
+          repository: quiknode-labs/qn-marketplace-cli
+          ref: main
+          path: cli
+
+      - name: Build qn-marketplace-cli
+        run: cd cli && go build
+
+      - name: Start the web app in the background
+        run: |
+          cd webapp && bin/rails server &
+          sleep 5  # Give the web app some time to start
+          ./cli/qn-marketplace-cli healthcheck --url http://127.0.0.1:3000/healthcheck --verbose
+
+      - name: Conduct a healthcheck
+        run: ./cli/qn-marketplace-cli healthcheck --url http://127.0.0.1:3000/healthcheck --verbose
+
+      - name: Conduct a PUDD test
+        run: ./cli/qn-marketplace-cli pudd --base-url http://127.0.0.1:3000 --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --verbose
+
+      - name: Test RPC
+        run: ./cli/qn-marketplace-cli rpc --url http://127.0.0.1:3000/provision --rpc-url http://127.0.0.1:3000/rpc --rpc-method qn_hello_world --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --verbose

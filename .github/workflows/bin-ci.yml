@@ -1,0 +1,63 @@
+name: Rails CI
+
+env:
+  RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: marketplace_starter_rails_test
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2.3
+        bundler-cache: true
+
+    - name: Install PostgreSQL client
+      run: sudo apt-get install libpq-dev
+
+    - name: Set up database
+      env:
+        RAILS_ENV: test
+        PGHOST: localhost
+        PGUSER: postgres
+        PGPASSWORD: postgres
+        RAILS_DATABASE_URL: postgres://postgres:postgres@localhost/marketplace_starter_rails_test
+      run: |
+        bin/rails db:prepare
+
+    - name: Run custom CI script
+      env:
+        RAILS_ENV: test
+        PGHOST: localhost
+        PGUSER: postgres
+        PGPASSWORD: postgres
+        RAILS_DATABASE_URL: postgres://postgres:postgres@localhost/marketplace_starter_rails_test
+      run: |
+        chmod +x bin/ci
+        ./bin/ci
