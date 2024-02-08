@@ -1,11 +1,11 @@
 <div class="mb-10">
-  <h1 class=" px-10 self-stretch flex-grow-0 flex-shrink-0 text-base font-medium text-left text-[#10151b]">
+  <h1 class="px-2 self-stretch flex-grow-0 flex-shrink-0 text-base font-medium text-left text-[#10151b]">
     Dashboard
   </h1>
 
-  <%= @current_account.id %>
+  <p class="p-2">Account ID: <%= @current_account.id %></p>
 
-  <%= session[:email] %>
-  <%= session[:name] %>
-  <%= session[:organization_name] %>
+  <p class="p-2"><%= session[:email] %></p>
+  <p class="p-2"><%= session[:name] %></p>
+  <p class="p-2"><%= session[:organization_name] %></p>
 </div>
