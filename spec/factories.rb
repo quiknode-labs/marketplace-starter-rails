@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  factory :user do
+    association :account
+    email { Faker::Internet.email }
+    name { Faker::Name.name }
+  end
+
   factory :account do
     quicknode_id { Faker::Number.number(digits: 7) }
     plan_slug { 'launch' }

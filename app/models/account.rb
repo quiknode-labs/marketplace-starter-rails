@@ -21,6 +21,7 @@ class Account < ApplicationRecord
   include Discard::Model
 
   has_many :endpoints, dependent: :destroy
+  has_many :users, dependent: :destroy
 
   validates :quicknode_id, presence: true
   validates :plan_slug, presence: true

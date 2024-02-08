@@ -12,6 +12,7 @@ RSpec.describe Account, type: :model do
 
   describe "Associations" do
     it { should have_many(:endpoints) }
+    it { should have_many(:users) }
   end
 
   describe "Validations" do
