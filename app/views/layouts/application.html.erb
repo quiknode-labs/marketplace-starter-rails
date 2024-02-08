@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-
-    <script src="/js/cdn.tailwindcss.com_3.3.3.js"></script>
-    <script src="/js/cdn.jsdelivr.net_npm_chart.js@4.3.3_dist_chart.umd.min.js"></script>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>

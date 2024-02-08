@@ -11,29 +11,25 @@
     <div class="flex flex-col justify-start items-start self-stretch flex-grow ">
       <div class="flex flex-col justify-start items-start self-stretch flex-grow gap-4 px-4 py-2 ">
         <div class="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 gap-3">
-          <% if @account %>
-            <% if @active_tab == 'Dashboard' %>
-              <a href="/dashboard"
-                class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 nav rounded-lg dash-active bg-white border border-[#10151b]/[0.06]"
-                style="box-shadow: 0px 4px 8px 0 rgba(16,21,27,0.05), 0px 1px 3px 0 rgba(16,21,27,0.05);">
-            <% else %>
-              <a href="/dashboard"
-                class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 nav rounded-lg">
-            <% end %>
-              <div class="flex justify-start items-center self-stretch flex-grow relative overflow-hidden gap-2 px-2 py-1 rounded-lg">
-                <div class="dashboard-icon">
-                  <%= image_tag 'dashboard_icon.svg' %>
-                </div>
-                <% if @active_tab == 'Dashboard' %>
-                  <p class="flex-grow w-[200px] text-sm font-medium text-left text-[#10151b]">
-                <% else %>
-                  <p class="flex-grow w-[200px] text-sm font-medium text-left text-[#58626d]">
-                <% end %>
-                  Dashboard
-                </p>
-              </div>
-            </a>
+          <% if @active_tab == 'Dashboard' %>
+            <%= link_to dashboard_path, 'Dashboard', class: "flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 nav rounded-lg dash-active bg-white border border-[#10151b]/[0.06]", style: "box-shadow: 0px 4px 8px 0 rgba(16,21,27,0.05), 0px 1px 3px 0 rgba(16,21,27,0.05);"%>
+          <% else %>
+            <a href="/dashboard"
+              class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 nav rounded-lg">
           <% end %>
+            <div class="flex justify-start items-center self-stretch flex-grow relative overflow-hidden gap-2 px-2 py-1 rounded-lg">
+              <div class="dashboard-icon">
+                <%= image_tag 'dashboard_icon.svg' %>
+              </div>
+              <% if @active_tab == 'Dashboard' %>
+                <p class="flex-grow w-[200px] text-sm font-medium text-left text-[#10151b]">
+              <% else %>
+                <p class="flex-grow w-[200px] text-sm font-medium text-left text-[#58626d]">
+              <% end %>
+                Dashboard
+              </p>
+            </div>
+          </a>
           <a class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 cursor-pointer nav rounded-lg" href="https://www.quicknode.com/docs/bitcoin/bb_getaddress" target="_blank">
             <div class="flex justify-start items-center self-stretch flex-grow relative gap-2 px-2 py-1 rounded-tl-lg rounded-bl-lg">
               <div class="doc-icon">
@@ -53,7 +49,7 @@
               <div class="flex justify-start items-center flex-grow relative gap-2 px-2 py-1 rounded-tl-lg rounded-bl-lg">
                 <%= image_tag 'person_icon.svg' %>
 
-                <p class="flex-grow w-[200px] text-sm text-left text-[#10151b]"><% session[:name] %></p>
+                <p class="flex-grow w-[200px] text-sm text-left text-[#10151b]"><%= session[:name] %></p>
               </div>
             </div>
           <% end %>
@@ -61,7 +57,7 @@
             <div class="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0">
               <div class="flex justify-start items-center flex-grow relative gap-2 px-2 py-1 rounded-tl-lg rounded-bl-lg">
                 <%= image_tag 'company_icon.svg' %>
-                <p class="flex-grow w-[200px] text-sm text-left text-[#10151b]"><% session[:organization_name] %></p>
+                <p class="flex-grow w-[200px] text-sm text-left text-[#10151b]"><%= session[:organization_name] %></p>
               </div>
             </div>
           <% end %>

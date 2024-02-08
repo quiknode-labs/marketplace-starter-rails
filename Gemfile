@@ -92,3 +92,5 @@ gem "jwt"
 
 # Used to make HTTP requests easily
 gem 'httparty'
+
+gem 'tailwindcss-rails'
