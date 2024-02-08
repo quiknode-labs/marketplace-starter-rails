@@ -23,7 +23,7 @@ To install and run the application locally:
 1. `bin/rails db:migrate`
 1. Edit your credentials/secrets using `bin/rails credentials:edit`.
 1. Install foreman: `gem install foreman`
-1. Run the specs with `bin/ci`
+1. Run the specs with `bin/ci` and check spec coverage with `open coverage/index.html`
 1. Start the application in development mode with `bin/dev`
 1. Visit [http://localhost:3009/](http://localhost:3009)
 

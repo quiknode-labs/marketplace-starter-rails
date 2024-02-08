@@ -11,6 +11,21 @@
 # a separate helper file that requires the additional dependencies and performs
 # the additional setup, and require it from the spec files that actually need
 # it.
+
+require 'simplecov'
+require 'simplecov-tailwindcss'
+
+SimpleCov.start 'rails' do
+  enable_coverage :branch
+  primary_coverage :branch
+  minimum_coverage line: 80, branch: 75
+  maximum_coverage_drop 5
+  add_group 'Blueprints', 'app/blueprints'
+end
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::TailwindFormatter
+])
+
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|

@@ -83,6 +83,11 @@ group :development do
   gem 'annotate'
 end
 
+group :test do
+  gem "simplecov"
+  gem "simplecov-tailwindcss"
+end
+
 # Used to soft delete records
 gem "discard"
 
