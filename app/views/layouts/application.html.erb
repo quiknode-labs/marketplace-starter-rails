@@ -1,16 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <title>MarketplaceStarterRails</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+
+    <script src="/js/cdn.tailwindcss.com_3.3.3.js"></script>
+    <script src="/js/cdn.jsdelivr.net_npm_chart.js@4.3.3_dist_chart.umd.min.js"></script>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="flex flex-row">
+      <nav id="desktop-nav" class="flex h-screen bg-gray-100 z-40 relative border-r border-gray-300 w-1/6">
+        <%= render partial: 'layouts/nav' %>
+      </nav>
+      <main class="flex flex-col items-start w-full h-screen bg-white overflow-x-scroll">
+        <div class="w-full">
+          <div class="overflow-x-auto m-10">
+            <div class="w-full h-full">
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
   </body>
 </html>
