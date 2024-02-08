@@ -96,7 +96,11 @@ Below, make sure that the `jwt-secret` matches `QN_SSO_SECRET` in `bin/rails cre
 #### RPC:
 
 ```sh
-../qn-marketplace-cli/qn-marketplace-cli rpc --url http://localhost:3009/provision --rpc-url http://localhost:3009/rpc --rpc-method qn_hello_world --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --verbose
+../qn-marketplace-cli/qn-marketplace-cli rpc --url http://localhost:3009/provision --rpc-url http://localhost:3009/rpc --rpc-method qnHelloWorld --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --verbose
+```
+
+```sh
+../qn-marketplace-cli/qn-marketplace-cli rpc --url http://localhost:3009/provision --rpc-url http://localhost:3009/rpc --rpc-method eth_sendRawTransactionFaster --rpc-params "[\"abc\"]" --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --verbose
 ```
 
 ## Deploying

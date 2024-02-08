@@ -10,6 +10,7 @@ module RPCMethodHandlers
       {
         jsonrpc: "2.0",
         result: "hello world",
+        params: @params,
       }
     end
   end

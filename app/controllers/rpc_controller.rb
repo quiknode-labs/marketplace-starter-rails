@@ -12,8 +12,9 @@ class RPCController < ApplicationController
     begin
       class_name = params[:method].split('_').map(&:camelize).join
       handler_name = "RPCMethodHandlers::#{class_name}"
+      logger.info "[RPC] #{params[:method]} => #{handler_name}"
       handler = handler_name.constantize
-      result = handler.new(params).call
+      result = handler.new(params[:params]).call
       render json: result
     rescue NameError
       render_404 and return
