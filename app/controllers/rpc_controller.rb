@@ -4,13 +4,15 @@ class RPCController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :validate_headers
 
-  def rpc
+  def rpc # rubocop:disable Metrics/CyclomaticComplexity
     @account = Account.kept.find_by(quicknode_id: request.headers["X-QUICKNODE-ID"])
     render_404 and return unless @account.present?
     render_404 and return unless params[:method].present?
 
     begin
-      handler = "RPCMethodHandlers::#{params[:method].camelize}".constantize
+      class_name = params[:method].split('_').map(&:camelize).join
+      handler_name = "RPCMethodHandlers::#{class_name}"
+      handler = handler_name.constantize
       result = handler.new(params).call
       render json: result
     rescue NameError

@@ -90,7 +90,7 @@ You need to make sure to replace that with your valid credentials (as defined in
 Below, make sure that the `jwt-secret` matches `QN_SSO_SECRET` in `bin/rails credentials:edit`
 
 ```
-../qn-marketplace-cli/qn-marketplace-cli sso --url http://localhost:3009/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email jon@example.com --name jon --org QuickNode
+../qn-marketplace-cli/qn-marketplace-cli sso --url http://localhost:3009/provision  --basic-auth dXNlcm5hbWU6cGFzc3dvcmQ= --jwt-secret jwt-secret --email nicolas@example.com --name "Nicolas Anelka" --org PSG
 ```
 
 #### RPC:

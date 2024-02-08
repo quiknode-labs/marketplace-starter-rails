@@ -118,9 +118,9 @@ RSpec.describe "RPC", type: :request do
       expect(JSON.parse(response.body)["result"]).to eq("hello world")
     end
 
-    it "should 200 if the method is supported: qn_hello_world" do
+    it "should 200 if the method is supported: qn_helloWorld" do
       post "/rpc", params: {
-        method: "qn_hello_world",
+        method: "qn_helloWorld",
       },
       headers: {
         'X-QUICKNODE-ID': account.quicknode_id,
@@ -133,9 +133,9 @@ RSpec.describe "RPC", type: :request do
       expect(JSON.parse(response.body)["result"]).to eq("hello world")
     end
 
-    it "should 200 if the method is supported: eth_send_raw_transaction_faster" do
+    it "should 200 if the method is supported: eth_sendRawTransactionFaster" do
       post "/rpc", params: {
-        method: "eth_send_raw_transaction_faster",
+        method: "eth_sendRawTransactionFaster",
       },
       headers: {
         'X-QUICKNODE-ID': account.quicknode_id,
