@@ -103,51 +103,43 @@ RSpec.describe "RPC", type: :request do
       expect(JSON.parse(response.body)["error"]["code"]).to eq(404)
     end
 
-    it "should 200 if the method is supported: qn_hello_world" do
-      post "/rpc", params: {
-        method: "qn_hello_world",
-      },
-      headers: {
-        'X-QUICKNODE-ID': account.quicknode_id,
-        'X-INSTANCE-ID': 'foobar',
-        'X-QN-CHAIN': 'ethereum',
-        'X-QN-NETWORK': 'mainet',
-      }
-      expect(response).to have_http_status(200)
-      expect(JSON.parse(response.body)["jsonrpc"]).to eq("2.0")
-      expect(JSON.parse(response.body)["result"]).to eq("hello world")
-    end
+    context("valid method and headers") do
+      let (:endpoint) { create(:endpoint, account: account) }
+      it "should 200 if the method is supported: qn_helloWorld" do
+        post "/rpc", params: {
+          method: "qn_helloWorld",
+          params: ['abc'],
+        },
+        headers: {
+          'X-QUICKNODE-ID': account.quicknode_id,
+          'X-INSTANCE-ID': endpoint.quicknode_id,
+          'X-QN-CHAIN': 'ethereum',
+          'X-QN-NETWORK': 'mainet',
+        }
+        expect(response).to have_http_status(200)
+        expect(JSON.parse(response.body)["jsonrpc"]).to eq("2.0")
+        expect(JSON.parse(response.body)["result"]).to eq("hello world")
+        expect(JSON.parse(response.body)["params"]).to eq(['abc'])
+        expect(assigns(:account)).to eq(account)
+        expect(assigns(:endpoint)).to eq(endpoint)
+      end
 
-    it "should 200 if the method is supported: qn_helloWorld" do
-      post "/rpc", params: {
-        method: "qn_helloWorld",
-        params: ['abc'],
-      },
-      headers: {
-        'X-QUICKNODE-ID': account.quicknode_id,
-        'X-INSTANCE-ID': 'foobar',
-        'X-QN-CHAIN': 'ethereum',
-        'X-QN-NETWORK': 'mainet',
-      }
-      expect(response).to have_http_status(200)
-      expect(JSON.parse(response.body)["jsonrpc"]).to eq("2.0")
-      expect(JSON.parse(response.body)["result"]).to eq("hello world")
-      expect(JSON.parse(response.body)["params"]).to eq(['abc'])
-    end
-
-    it "should 200 if the method is supported: eth_sendRawTransactionFaster" do
-      post "/rpc", params: {
-        method: "eth_sendRawTransactionFaster",
-      },
-      headers: {
-        'X-QUICKNODE-ID': account.quicknode_id,
-        'X-INSTANCE-ID': 'foobar',
-        'X-QN-CHAIN': 'ethereum',
-        'X-QN-NETWORK': 'mainet',
-      }
-      expect(response).to have_http_status(200)
-      expect(JSON.parse(response.body)["jsonrpc"]).to eq("2.0")
-      expect(JSON.parse(response.body)["result"]).to eq("transaction was sent successfully and faster")
+      it "should 200 if the method is supported: eth_sendRawTransactionFaster" do
+        post "/rpc", params: {
+          method: "eth_sendRawTransactionFaster",
+        },
+        headers: {
+          'X-QUICKNODE-ID': account.quicknode_id,
+          'X-INSTANCE-ID': endpoint.quicknode_id,
+          'X-QN-CHAIN': 'ethereum',
+          'X-QN-NETWORK': 'mainet',
+        }
+        expect(response).to have_http_status(200)
+        expect(JSON.parse(response.body)["jsonrpc"]).to eq("2.0")
+        expect(JSON.parse(response.body)["result"]).to eq("transaction was sent successfully and faster")
+        expect(assigns(:account)).to eq(account)
+        expect(assigns(:endpoint)).to eq(endpoint)
+      end
     end
   end
 end
