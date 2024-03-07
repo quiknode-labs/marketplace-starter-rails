@@ -89,12 +89,16 @@ RSpec.describe "RPC", type: :request do
     end
 
     it "should 404 if the method is not supported" do
+      address = '0x91b51c173a4bDAa1A60e234fC3f705A16D228740'
+      endpoint = create(:endpoint, account: account)
+
       post "/rpc", params: {
         method: "unsupported_method",
+        params: [address],
       },
       headers: {
         'X-QUICKNODE-ID': account.quicknode_id,
-        'X-INSTANCE-ID': 'foobar',
+        'X-INSTANCE-ID': endpoint.quicknode_id,
         'X-QN-CHAIN': 'ethereum',
         'X-QN-NETWORK': 'mainet',
       }
