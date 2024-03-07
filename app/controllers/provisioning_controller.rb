@@ -70,7 +70,6 @@ class ProvisioningController < ApplicationController
 
   def deprovision
     render_404 and return unless @account
-    render_404 and return unless @endpoint
 
     @account.endpoints.each(&:discard)
     @account.discard
