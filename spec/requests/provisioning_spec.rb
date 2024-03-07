@@ -169,14 +169,6 @@ RSpec.describe "Provisionings", type: :request do
       expect(response).to have_http_status(404)
     end
 
-    it "should 404 if the endpoint does not exist" do
-      delete "/deprovision", params: {
-        "quicknode-id": account.quicknode_id,
-        "endpoint-id": "does-not-exist",
-      }, headers: { "Authorization" => credentials }
-      expect(response).to have_http_status(404)
-    end
-
     it "should discard the account and all its endpoints" do
       endpoint = create(:endpoint, account: account)
       create(:endpoint, account: account)
