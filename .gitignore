@@ -42,6 +42,3 @@
 node_modules
 
 coverage
-
-# Ignore the build directory
-/app/assets/builds
