@@ -20,6 +20,9 @@ class ProvisioningController < ApplicationController
       quicknode_id: params["quicknode-id"],
     )
 
+    # If this account previously installed the add-on and discarded it, reactivate it
+    @account.undiscard! if @account.discarded?
+
     @endpoint = @account.endpoints.create(
       quicknode_id: params["endpoint-id"],
       http_url: params["http-url"],
