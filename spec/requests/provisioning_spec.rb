@@ -78,6 +78,29 @@ RSpec.describe "Provisionings", type: :request do
       expect(assigns(:account).is_test?).to eq(false)
       expect(assigns(:endpoint).account).to eq(account)
     end
+
+    it "should undiscard the account if it was previously discarded" do
+      account = create(:account, discarded_at: 5.weeks.ago)
+
+      expect {
+        expect {
+          post "/provision", params: {
+            "quicknode-id": account.quicknode_id,
+            "endpoint-id": "2c03e048-5778-4944-b804-0de77df9363a",
+            "wss-url": "wss://long-late-firefly.quiknode.pro/2f568e4df78544629ce9af64bbe3cef9145895f5/",
+            "http-url": "https://long-late-firefly.quiknode.pro/2f568e4df78544629ce9af64bbe3cef9145895f5/",
+            "referers": ["quicknode.com"],
+            "contract_addresses": [],
+            "chain": "ethereum",
+            "network": "mainnet",
+            "plan": "your-plan-slug",
+          }, headers: { "Authorization" => credentials }
+        }.to change { Endpoint.kept.count }.by(1)
+      }.to change{ Account.count }.by(0)
+
+      account.reload
+      expect(account.discarded_at).to be_nil
+    end
   end
 
   describe "PUT /update" do
